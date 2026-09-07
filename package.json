@@ -1,0 +1,13 @@
+{
+  "name": "regen-most-wanted-pitch-experience",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "deploy:check": "wrangler deploy --dry-run"
+  },
+  "devDependencies": {
+    "wrangler": "4.129.0"
+  }
+}

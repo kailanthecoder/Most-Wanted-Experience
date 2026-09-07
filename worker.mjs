@@ -146,11 +146,6 @@ function json(data, status = 200, headers = {}) {
 }
 
 function loginPage(configurationReady) {
-  const accountOptions = ACCOUNTS.map((account, index) => {
-    const selected = index === 0 ? " is-selected" : "";
-    const checked = index === 0 ? " checked" : "";
-    return '<label class="account-option' + selected + '"><input type="radio" name="account" value="' + account.id + '"' + checked + '><span class="account-avatar">' + escapeHtml(account.label.charAt(0)) + '</span><span>' + escapeHtml(account.label) + '</span></label>';
-  }).join("");
   const setupMessage = configurationReady ? "" : '<p class="setup-warning" role="alert">This Worker needs its two encrypted pitch secrets before login can open.</p>';
 
   return `<!doctype html>
@@ -161,7 +156,7 @@ function loginPage(configurationReady) {
   <meta name="theme-color" content="#004b47">
   <title>Regen · Closer portal</title>
   <style>
-    :root{--ink:#043d3b;--deep:#004b47;--mid:#087d76;--bright:#48e5d8;--pale:#eafffc}*{box-sizing:border-box}html,body{width:100%;min-height:100%;margin:0}body{overflow:hidden;background:#003f3c;color:#092e2c;font-family:Arial,Helvetica,sans-serif}button,input{font:inherit}.login-page{position:fixed;inset:0;display:grid;place-items:center;overflow:auto;padding:28px;background:radial-gradient(circle at 14% 10%,rgba(120,255,243,.45),transparent 25%),radial-gradient(circle at 88% 90%,rgba(72,229,216,.26),transparent 29%),linear-gradient(135deg,#003c39 0%,#086f69 48%,#003f3c 100%)}.login-page:before{content:"";position:absolute;inset:0;opacity:.12;background-image:linear-gradient(rgba(255,255,255,.45) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.45) 1px,transparent 1px);background-size:46px 46px;mask-image:linear-gradient(to bottom right,#000,transparent 70%)}.orbit{position:absolute;border:1px solid rgba(120,255,243,.24);border-radius:999px;pointer-events:none}.orbit.one{width:620px;height:620px;right:-190px;top:-210px}.orbit.two{width:430px;height:430px;left:-120px;bottom:-160px}.card{position:relative;z-index:1;width:min(680px,100%);max-height:calc(100vh - 56px);overflow:auto;padding:32px;border:1px solid rgba(255,255,255,.45);border-radius:28px;background:rgba(244,255,253,.96);box-shadow:0 30px 100px rgba(0,27,26,.42)}.brand{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-bottom:22px;border-bottom:1px solid rgba(4,61,59,.15)}.brand img{display:block;width:150px;max-height:44px;object-fit:contain;object-position:left center;mix-blend-mode:multiply}.brand span{padding:7px 12px;border:1px solid rgba(4,61,59,.18);border-radius:999px;color:var(--mid);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.heading{padding:26px 0 24px}.heading p,.heading h1{margin:0}.heading p{margin-bottom:8px;color:var(--mid);font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.heading h1{color:var(--ink);font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-size:clamp(46px,7vw,72px);font-weight:500;letter-spacing:-.02em;line-height:.98;text-transform:uppercase}.heading span{display:block;margin-top:12px;color:#486966;font-size:16px}fieldset{margin:0;padding:0;border:0}legend,.code-field>span{display:block;margin-bottom:9px;color:var(--ink);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.account-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.account-option{display:flex;min-width:0;flex-direction:column;align-items:center;gap:8px;padding:12px 5px 10px;border:1px solid #b5d2cf;border-radius:14px;background:#fff;color:#42615f;cursor:pointer;font-size:12px;font-weight:800;text-align:center;transition:transform .16s ease,border-color .16s ease,background .16s ease}.account-option:hover{transform:translateY(-2px);border-color:var(--mid)}.account-option.is-selected{border-color:var(--mid);background:var(--pale);color:var(--ink);box-shadow:inset 0 0 0 1px var(--mid)}.account-option input{position:absolute;opacity:0;pointer-events:none}.account-avatar{display:grid;width:32px;height:32px;place-items:center;border-radius:50%;background:#d9eeec;color:var(--ink);font-size:14px}.account-option.is-selected .account-avatar{background:var(--bright)}.code-field{display:block;margin-top:20px}.code-field input{width:100%;height:54px;padding:0 16px;border:1px solid #a9c9c6;border-radius:13px;outline:0;background:#fff;color:var(--ink);font-size:17px}.code-field input:focus{border-color:var(--mid);box-shadow:0 0 0 4px rgba(72,229,216,.2)}.message,.setup-warning{margin:12px 0 0;color:#a32121;font-size:14px;font-weight:700}.submit{width:100%;height:56px;margin-top:18px;border:0;border-radius:13px;background:var(--deep);color:#fff;cursor:pointer;font-size:15px;font-weight:800;letter-spacing:.02em;box-shadow:0 11px 22px rgba(0,75,71,.2)}.submit:hover{background:#03645f}.submit:disabled{cursor:wait;opacity:.65}.card footer{margin-top:20px;color:#6c8583;font-size:11px;text-align:center}@media(max-width:620px){.login-page{padding:14px}.card{max-height:calc(100vh - 28px);padding:22px;border-radius:21px}.brand img{width:120px}.account-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.account-option:last-child{grid-column:1/-1}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
+    :root{--ink:#043d3b;--deep:#004b47;--mid:#087d76;--bright:#48e5d8}*{box-sizing:border-box}html,body{width:100%;min-height:100%;margin:0}body{overflow:hidden;background:#003f3c;color:#092e2c;font-family:Arial,Helvetica,sans-serif}button,input{font:inherit}.login-page{position:fixed;inset:0;display:grid;place-items:center;overflow:auto;padding:28px;background:radial-gradient(circle at 14% 10%,rgba(120,255,243,.45),transparent 25%),radial-gradient(circle at 88% 90%,rgba(72,229,216,.26),transparent 29%),linear-gradient(135deg,#003c39 0%,#086f69 48%,#003f3c 100%)}.login-page:before{content:"";position:absolute;inset:0;opacity:.12;background-image:linear-gradient(rgba(255,255,255,.45) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.45) 1px,transparent 1px);background-size:46px 46px;mask-image:linear-gradient(to bottom right,#000,transparent 70%)}.orbit{position:absolute;border:1px solid rgba(120,255,243,.24);border-radius:999px;pointer-events:none}.orbit.one{width:620px;height:620px;right:-190px;top:-210px}.orbit.two{width:430px;height:430px;left:-120px;bottom:-160px}.card{position:relative;z-index:1;width:min(680px,100%);max-height:calc(100vh - 56px);overflow:auto;padding:32px;border:1px solid rgba(255,255,255,.45);border-radius:28px;background:rgba(244,255,253,.96);box-shadow:0 30px 100px rgba(0,27,26,.42)}.brand{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-bottom:22px;border-bottom:1px solid rgba(4,61,59,.15)}.brand img{display:block;width:150px;max-height:44px;object-fit:contain;object-position:left center;mix-blend-mode:multiply}.brand span{padding:7px 12px;border:1px solid rgba(4,61,59,.18);border-radius:999px;color:var(--mid);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.heading{padding:26px 0 24px}.heading p,.heading h1{margin:0}.heading p{margin-bottom:8px;color:var(--mid);font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.heading h1{color:var(--ink);font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-size:clamp(46px,7vw,72px);font-weight:500;letter-spacing:-.02em;line-height:.98;text-transform:uppercase}.heading span{display:block;margin-top:12px;color:#486966;font-size:16px}.code-field>span{display:block;margin-bottom:9px;color:var(--ink);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.code-field{display:block}.code-field input{width:100%;height:54px;padding:0 16px;border:1px solid #a9c9c6;border-radius:13px;outline:0;background:#fff;color:var(--ink);font-size:17px}.code-field input:focus{border-color:var(--mid);box-shadow:0 0 0 4px rgba(72,229,216,.2)}.message,.setup-warning{margin:12px 0 0;color:#a32121;font-size:14px;font-weight:700}.submit{width:100%;height:56px;margin-top:18px;border:0;border-radius:13px;background:var(--deep);color:#fff;cursor:pointer;font-size:15px;font-weight:800;letter-spacing:.02em;box-shadow:0 11px 22px rgba(0,75,71,.2)}.submit:hover{background:#03645f}.submit:disabled{cursor:wait;opacity:.65}.card footer{margin-top:20px;color:#6c8583;font-size:11px;text-align:center}@media(max-width:620px){.login-page{padding:14px}.card{max-height:calc(100vh - 28px);padding:22px;border-radius:21px}.brand img{width:120px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
   </style>
 </head>
 <body>
@@ -169,9 +164,8 @@ function loginPage(configurationReady) {
     <div class="orbit one" aria-hidden="true"></div><div class="orbit two" aria-hidden="true"></div>
     <section class="card" aria-labelledby="login-title">
       <div class="brand"><img src="${REGEN_LOGO}" alt="Regen"><span>Closer portal</span></div>
-      <div class="heading"><p>Private sales experience</p><h1 id="login-title">Welcome back.</h1><span>Choose your account and enter its access code.</span></div>
+      <div class="heading"><p>Private sales experience</p><h1 id="login-title">Welcome back.</h1><span>Enter your private access code.</span></div>
       <form id="login-form">
-        <fieldset><legend>Account</legend><div class="account-grid">${accountOptions}</div></fieldset>
         <label class="code-field"><span>Access code</span><input id="code" type="password" autocomplete="current-password" placeholder="Enter your code" required></label>
         ${setupMessage}<p id="message" class="message" role="alert" hidden></p>
         <button id="submit" class="submit" type="submit">Open pitch experience</button>
@@ -181,26 +175,24 @@ function loginPage(configurationReady) {
   </main>
   <script>
     const form=document.getElementById("login-form"),button=document.getElementById("submit"),message=document.getElementById("message");
-    document.querySelectorAll('.account-option input').forEach(input=>input.addEventListener('change',()=>{document.querySelectorAll('.account-option').forEach(option=>option.classList.toggle('is-selected',option.contains(input)))}));
-    form.addEventListener("submit",async event=>{event.preventDefault();button.disabled=true;button.textContent="Opening…";message.hidden=true;try{const account=new FormData(form).get("account"),code=document.getElementById("code").value;const result=await fetch("/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({account,code})});const data=await result.json();if(!result.ok)throw new Error(data.message||"Unable to sign in.");location.reload()}catch(error){message.textContent=error instanceof Error?error.message:"Unable to connect. Please try again.";message.hidden=false}finally{button.disabled=false;button.textContent="Open pitch experience"}});
+    form.addEventListener("submit",async event=>{event.preventDefault();button.disabled=true;button.textContent="Opening…";message.hidden=true;try{const code=document.getElementById("code").value;const result=await fetch("/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({code})});const data=await result.json();if(!result.ok)throw new Error(data.message||"Unable to sign in.");location.reload()}catch(error){message.textContent=error instanceof Error?error.message:"Unable to connect. Please try again.";message.hidden=false}finally{button.disabled=false;button.textContent="Open pitch experience"}});
   </script>
 </body>
 </html>`;
 }
 
 function stagePage(account) {
-  const label = escapeHtml(account.label);
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="${account.brand === "regen" ? "#39d9cf" : "#f4f4f2"}">
-  <title>${label} · Pitch experience</title>
-  <style>*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{font-family:Arial,Helvetica,sans-serif}.stage{position:fixed;inset:0;overflow:hidden}.stage.regen{background:radial-gradient(circle at 14% 8%,rgba(112,255,243,.28),transparent 31%),linear-gradient(135deg,#eafffc 0%,#b6ebe6 52%,#4dc9c0 100%)}.stage.most-wanted{background:radial-gradient(circle at 14% 8%,rgba(255,255,255,.98),transparent 31%),radial-gradient(circle at 90% 86%,rgba(126,131,140,.18),transparent 34%),linear-gradient(135deg,#fff 0%,#eee 52%,#d8dade 100%)}.host{position:fixed;top:50%;left:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;isolation:isolate;background:#f4f4f2;box-shadow:0 34px 100px rgba(20,22,25,.18),0 8px 30px rgba(20,22,25,.11)}iframe{display:block;width:1600px;height:900px;border:0;background:#f4f4f2}.session{position:fixed;z-index:20;top:10px;right:10px;display:flex;align-items:center;gap:8px;padding:5px 5px 5px 11px;border:1px solid rgba(255,255,255,.55);border-radius:999px;background:rgba(4,61,59,.84);color:#fff;font-size:11px;font-weight:700;box-shadow:0 5px 16px rgba(0,0,0,.16);backdrop-filter:blur(9px)}.most-wanted .session{background:rgba(20,22,25,.84)}.session button{padding:6px 9px;border:0;border-radius:999px;background:rgba(255,255,255,.95);color:#122b29;cursor:pointer;font-size:10px;font-weight:800}</style>
+  <title>Private pitch experience</title>
+  <style>*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{font-family:Arial,Helvetica,sans-serif}.stage{position:fixed;inset:0;overflow:hidden}.stage.regen{background:radial-gradient(circle at 14% 8%,rgba(112,255,243,.28),transparent 31%),linear-gradient(135deg,#eafffc 0%,#b6ebe6 52%,#4dc9c0 100%)}.stage.most-wanted{background:radial-gradient(circle at 14% 8%,rgba(255,255,255,.98),transparent 31%),radial-gradient(circle at 90% 86%,rgba(126,131,140,.18),transparent 34%),linear-gradient(135deg,#fff 0%,#eee 52%,#d8dade 100%)}.host{position:fixed;top:50%;left:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;isolation:isolate;background:#f4f4f2;box-shadow:0 34px 100px rgba(20,22,25,.18),0 8px 30px rgba(20,22,25,.11)}iframe{display:block;width:1600px;height:900px;border:0;background:#f4f4f2}.session{position:fixed;z-index:20;top:10px;right:10px;display:flex;align-items:center;padding:5px;border:1px solid rgba(255,255,255,.55);border-radius:999px;background:rgba(4,61,59,.84);box-shadow:0 5px 16px rgba(0,0,0,.16);backdrop-filter:blur(9px)}.most-wanted .session{background:rgba(20,22,25,.84)}.session button{padding:6px 9px;border:0;border-radius:999px;background:rgba(255,255,255,.95);color:#122b29;cursor:pointer;font-size:10px;font-weight:800}</style>
 </head>
 <body>
-  <main class="stage ${account.brand}"><div class="session"><span>${label}</span><button id="logout" type="button">Log out</button></div><div id="host" class="host"><iframe id="deck" src="/api/deck" title="${label} adaptive sales experience" allow="fullscreen" allowfullscreen></iframe></div></main>
+  <main class="stage ${account.brand}"><div class="session"><button id="logout" type="button">Log out</button></div><div id="host" class="host"><iframe id="deck" src="/api/deck" title="Private adaptive sales experience" allow="fullscreen" allowfullscreen></iframe></div></main>
   <script>
     const host=document.getElementById("host"),frame=document.getElementById("deck");
     const fit=()=>{const scale=Math.min(innerWidth/1600,innerHeight/900);host.style.transform="translate(-50%,-50%) scale("+scale+")"};fit();addEventListener("resize",fit,{passive:true});
@@ -220,19 +212,20 @@ async function handleLogin(request, env) {
   try {
     body = await request.json();
   } catch {
-    return json({ ok: false, message: "Enter an account and access code." }, 400);
+    return json({ ok: false, message: "Enter your access code." }, 400);
   }
-  if (!body || typeof body.account !== "string" || typeof body.code !== "string") {
-    return json({ ok: false, message: "Enter an account and access code." }, 400);
-  }
-  const account = accountFor(body.account);
-  const expectedHash = hashes[body.account];
-  if (!account || typeof expectedHash !== "string") {
-    return json({ ok: false, message: "That access code is not valid for this account." }, 401);
+  if (!body || typeof body.code !== "string") {
+    return json({ ok: false, message: "Enter your access code." }, 400);
   }
   const suppliedHash = await sha256Hex(body.code.trim());
-  if (!constantTimeEqual(suppliedHash, expectedHash)) {
-    return json({ ok: false, message: "That access code is not valid for this account." }, 401);
+  let account = null;
+  for (const candidate of ACCOUNTS) {
+    const expectedHash = hashes[candidate.id];
+    const candidateHash = typeof expectedHash === "string" ? expectedHash : "0".repeat(64);
+    if (constantTimeEqual(suppliedHash, candidateHash) && typeof expectedHash === "string") account = candidate;
+  }
+  if (!account) {
+    return json({ ok: false, message: "That access code is not valid." }, 401);
   }
   const session = await createSession(account, env);
   return json({ ok: true }, 200, {

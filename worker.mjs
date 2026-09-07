@@ -181,6 +181,10 @@ function loginPage(configurationReady) {
 }
 
 function stagePage(account) {
+  const stageBackground = account.brand === "regen"
+    ? "radial-gradient(circle at 14% 8%,rgba(112,255,243,.28),transparent 31%),linear-gradient(135deg,#eafffc 0%,#b6ebe6 52%,#4dc9c0 100%)"
+    : "radial-gradient(circle at 14% 8%,rgba(255,255,255,.98),transparent 31%),radial-gradient(circle at 90% 86%,rgba(126,131,140,.18),transparent 34%),linear-gradient(135deg,#fff 0%,#eee 52%,#d8dade 100%)";
+  const sessionBackground = account.brand === "regen" ? "rgba(4,61,59,.84)" : "rgba(20,22,25,.84)";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -188,10 +192,10 @@ function stagePage(account) {
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="${account.brand === "regen" ? "#39d9cf" : "#f4f4f2"}">
   <title>Private pitch experience</title>
-  <style>*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{font-family:Arial,Helvetica,sans-serif}.stage{position:fixed;inset:0;overflow:hidden}.stage.regen{background:radial-gradient(circle at 14% 8%,rgba(112,255,243,.28),transparent 31%),linear-gradient(135deg,#eafffc 0%,#b6ebe6 52%,#4dc9c0 100%)}.stage.most-wanted{background:radial-gradient(circle at 14% 8%,rgba(255,255,255,.98),transparent 31%),radial-gradient(circle at 90% 86%,rgba(126,131,140,.18),transparent 34%),linear-gradient(135deg,#fff 0%,#eee 52%,#d8dade 100%)}.host{position:fixed;top:50%;left:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;isolation:isolate;background:#f4f4f2;box-shadow:0 34px 100px rgba(20,22,25,.18),0 8px 30px rgba(20,22,25,.11)}iframe{display:block;width:1600px;height:900px;border:0;background:#f4f4f2}.session{position:fixed;z-index:20;top:10px;right:10px;display:flex;align-items:center;padding:5px;border:1px solid rgba(255,255,255,.55);border-radius:999px;background:rgba(4,61,59,.84);box-shadow:0 5px 16px rgba(0,0,0,.16);backdrop-filter:blur(9px)}.most-wanted .session{background:rgba(20,22,25,.84)}.session button{padding:6px 9px;border:0;border-radius:999px;background:rgba(255,255,255,.95);color:#122b29;cursor:pointer;font-size:10px;font-weight:800}</style>
+  <style>*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{font-family:Arial,Helvetica,sans-serif}.stage{position:fixed;inset:0;overflow:hidden;background:${stageBackground}}.host{position:fixed;top:50%;left:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;isolation:isolate;background:#f4f4f2;box-shadow:0 34px 100px rgba(20,22,25,.18),0 8px 30px rgba(20,22,25,.11)}iframe{display:block;width:1600px;height:900px;border:0;background:#f4f4f2}.session{position:fixed;z-index:20;top:10px;right:10px;display:flex;align-items:center;padding:5px;border:1px solid rgba(255,255,255,.55);border-radius:999px;background:${sessionBackground};box-shadow:0 5px 16px rgba(0,0,0,.16);backdrop-filter:blur(9px)}.session button{padding:6px 9px;border:0;border-radius:999px;background:rgba(255,255,255,.95);color:#122b29;cursor:pointer;font-size:10px;font-weight:800}</style>
 </head>
 <body>
-  <main class="stage ${account.brand}"><div class="session"><button id="logout" type="button">Log out</button></div><div id="host" class="host"><iframe id="deck" src="/api/deck" title="Private adaptive sales experience" allow="fullscreen" allowfullscreen></iframe></div></main>
+  <main class="stage"><div class="session"><button id="logout" type="button">Log out</button></div><div id="host" class="host"><iframe id="deck" src="/api/deck" title="Private adaptive sales experience" allow="fullscreen" allowfullscreen></iframe></div></main>
   <script>
     const host=document.getElementById("host"),frame=document.getElementById("deck");
     const fit=()=>{const scale=Math.min(innerWidth/1600,innerHeight/900);host.style.transform="translate(-50%,-50%) scale("+scale+")"};fit();addEventListener("resize",fit,{passive:true});

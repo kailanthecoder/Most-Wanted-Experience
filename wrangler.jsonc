@@ -1,11 +1,16 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "most-wanted-experience",
+  "name": "closerpitchdeck",
   "main": "worker.mjs",
   "compatibility_date": "2026-09-06",
   "workers_dev": true,
   "preview_urls": true,
   "keep_vars": true,
+  "services": [{ "binding": "PITCH_LOGIN_AUTH", "service": "most-wanted-experience" }],
+  "durable_objects": {
+    "bindings": [{ "name": "PITCH_PROSPECTS", "class_name": "PitchProspects" }]
+  },
+  "migrations": [{ "tag": "prospects-v1", "new_sqlite_classes": ["PitchProspects"] }],
   "observability": {
     "enabled": true
   }

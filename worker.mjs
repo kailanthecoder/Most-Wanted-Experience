@@ -175,7 +175,39 @@ function loginPage(configurationReady) {
   <title>Private Pitch Experience</title>
   <link rel="icon" href="${FAVICON}" type="image/svg+xml">
   <style>
-    @font-face{font-family:"Figtree";src:url("${FIGTREE_FONT}") format("woff2");font-style:normal;font-weight:300 900;font-display:block}:root{--ink:#1a231e;--deep:#0b3b24;--mid:#169348;--bright:#3ecf7a;--pale:#eaf6ef;--paper:#fff}*{box-sizing:border-box}html,body{width:100%;min-height:100%;margin:0}body{overflow:hidden;background:#fafaf9;color:var(--ink);font-family:"Figtree",Arial,Helvetica,sans-serif}button,input{font:inherit}.login-page{position:fixed;inset:0;display:grid;place-items:center;overflow:auto;padding:28px;background:radial-gradient(circle at 10% 12%,rgba(62,207,122,.15),transparent 30%),radial-gradient(circle at 91% 88%,rgba(22,147,72,.10),transparent 31%),linear-gradient(135deg,#fff 0%,#fafaf9 66%,#eaf6ef 100%)}.login-page:before{opacity:.20;background-image:linear-gradient(rgba(22,147,72,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(22,147,72,.08) 1px,transparent 1px);background-size:56px 56px}.orbit{border-color:rgba(22,147,72,.16)}.card{padding:34px;border-color:#e7e5e4;background:rgba(255,255,255,.98);box-shadow:0 30px 100px rgba(26,35,30,.14)}.brand{border-color:#e7e5e4}.brand span{background:var(--pale);color:var(--mid)}.heading h1{color:var(--ink);font-family:"Figtree",Arial,Helvetica,sans-serif;font-weight:850;letter-spacing:-.055em}.heading span,.card footer{color:#57534e}.code-field input{height:56px;border-color:#d6d3d1;background:#fff;color:var(--ink)}.code-field input:focus{border-color:var(--mid);box-shadow:0 0 0 4px rgba(62,207,122,.18)}.submit{height:58px;background:var(--mid);color:#fff;box-shadow:0 11px 22px rgba(22,147,72,.20)}.submit:hover{background:#0e6b33}.submit:focus-visible{outline-color:var(--bright)}
+    @font-face{font-family:"Figtree";src:url("${FIGTREE_FONT}") format("woff2");font-style:normal;font-weight:300 900;font-display:block}
+    :root{--ink:#1a231e;--deep:#0b3b24;--mid:#169348;--bright:#3ecf7a;--pale:#eaf6ef;--paper:#fff;--line:#e7e5e4;--muted:#57534e}
+    *{box-sizing:border-box}
+    html,body{width:100%;min-height:100%;margin:0}
+    body{overflow:hidden;background:#fafaf9;color:var(--ink);font-family:"Figtree",Arial,Helvetica,sans-serif}
+    button,input{font:inherit}
+    .login-page{position:fixed;inset:0;display:grid;place-items:center;overflow:auto;padding:24px;background:radial-gradient(circle at 9% 11%,rgba(62,207,122,.16),transparent 29%),radial-gradient(circle at 92% 89%,rgba(22,147,72,.11),transparent 30%),linear-gradient(135deg,#fff 0%,#fafaf9 64%,#eaf6ef 100%)}
+    .login-page:before{content:"";position:absolute;inset:0;opacity:.24;pointer-events:none;background-image:linear-gradient(rgba(22,147,72,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(22,147,72,.075) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(135deg,#000,transparent 76%)}
+    .orbit{position:absolute;border:1px solid rgba(22,147,72,.15);border-radius:999px;pointer-events:none}
+    .orbit.one{width:560px;height:560px;right:-190px;top:-225px}
+    .orbit.two{width:390px;height:390px;left:-145px;bottom:-190px}
+    .card{position:relative;z-index:1;width:min(620px,100%);max-height:calc(100vh - 48px);overflow:auto;padding:30px;border:1px solid var(--line);border-radius:28px;background:rgba(255,255,255,.985);box-shadow:0 28px 90px rgba(26,35,30,.14),0 3px 12px rgba(26,35,30,.05)}
+    .brand{display:flex;align-items:center;justify-content:flex-end;padding-bottom:18px;border-bottom:1px solid var(--line)}
+    .brand span{display:inline-flex;align-items:center;min-height:30px;padding:7px 12px;border:1px solid #b9ddc5;border-radius:999px;background:var(--pale);color:var(--mid);font-size:11px;font-weight:800;letter-spacing:.12em;line-height:1;text-transform:uppercase}
+    .heading{padding:24px 0 22px}
+    .heading p,.heading h1{margin:0}
+    .heading p{margin-bottom:8px;color:var(--mid);font-size:12px;font-weight:800;letter-spacing:.13em;line-height:1.2;text-transform:uppercase}
+    .heading h1{color:var(--ink);font-size:clamp(46px,6vw,64px);font-weight:850;letter-spacing:-.055em;line-height:.98}
+    .heading span{display:block;margin-top:12px;color:var(--muted);font-size:16px;line-height:1.35}
+    form{display:grid;gap:14px}
+    .code-field{display:grid;gap:9px;margin:0}
+    .code-field>span{color:var(--ink);font-size:12px;font-weight:800;letter-spacing:.1em;line-height:1.2;text-transform:uppercase}
+    .code-field input{display:block;width:100%;height:56px;padding:0 16px;border:1px solid #d6d3d1;border-radius:13px;outline:0;background:#fff;color:var(--ink);font-size:17px;line-height:56px}
+    .code-field input::placeholder{color:#78716c;opacity:1}
+    .code-field input:focus{border-color:var(--mid);box-shadow:0 0 0 4px rgba(62,207,122,.18)}
+    .message,.setup-warning{margin:0;color:#a32121;font-size:14px;font-weight:700;line-height:1.35}
+    .submit{display:block;width:100%;height:56px;margin:0;border:0;border-radius:13px;background:var(--mid);color:#fff;cursor:pointer;font-size:15px;font-weight:800;letter-spacing:.02em;box-shadow:0 11px 22px rgba(22,147,72,.20)}
+    .submit:hover{background:#0e6b33}.submit:focus-visible{outline:3px solid var(--bright);outline-offset:3px}.submit:disabled{cursor:wait;opacity:.65}
+    .card footer{margin-top:18px;color:var(--muted);font-size:11px;line-height:1.35;text-align:center}
+    @media(max-width:620px){.login-page{padding:14px}.card{max-height:calc(100vh - 28px);padding:22px;border-radius:21px}.heading{padding:20px 0 18px}.heading h1{font-size:clamp(40px,12vw,52px)}}
+    @media(max-height:650px){.login-page{padding:12px}.card{max-height:calc(100vh - 24px);padding:20px 24px;border-radius:21px}.brand{padding-bottom:12px}.heading{padding:15px 0}.heading h1{font-size:44px}.heading span{margin-top:8px;font-size:14px}.code-field input{height:50px;line-height:50px}.submit{height:50px}.card footer{margin-top:12px}}
+    @media(max-height:440px){.card{padding:14px 20px}.brand{padding-bottom:8px}.brand span{min-height:25px;padding:5px 9px;font-size:9px}.heading{padding:9px 0 10px}.heading p{margin-bottom:4px;font-size:10px}.heading h1{font-size:34px}.heading span{margin-top:5px;font-size:12px}form{gap:8px}.code-field{gap:5px}.code-field>span{font-size:10px}.code-field input,.submit{height:42px}.card footer{margin-top:7px;font-size:9px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
   </style>
 </head>
 <body>
@@ -183,7 +215,7 @@ function loginPage(configurationReady) {
     <div class="orbit one" aria-hidden="true"></div><div class="orbit two" aria-hidden="true"></div>
     <section class="card" aria-labelledby="login-title">
       <div class="brand"><span>Closer portal</span></div>
-      <div class="heading"><p>Private sales experience</p><h1 id="login-title">Welcome back.</h1><span>Enter your private access code.</span></div>
+      <div class="heading"><p>Private Pitch Experience</p><h1 id="login-title">Welcome back.</h1><span>Enter your private access code.</span></div>
       <form id="login-form">
         <label class="code-field"><span>Access code</span><input id="code" type="password" autocomplete="current-password" placeholder="Enter your code" required></label>
         ${setupMessage}<p id="message" class="message" role="alert" hidden></p>

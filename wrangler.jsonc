@@ -6,7 +6,6 @@
   "workers_dev": true,
   "preview_urls": true,
   "keep_vars": true,
-  "services": [{ "binding": "PITCH_LOGIN_AUTH", "service": "most-wanted-experience" }],
   "durable_objects": {
     "bindings": [{ "name": "PITCH_PROSPECTS", "class_name": "PitchProspects" }]
   },

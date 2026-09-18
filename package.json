@@ -8,6 +8,7 @@
     "deploy:check": "wrangler deploy --dry-run"
   },
   "devDependencies": {
+    "html2canvas": "^1.4.1",
     "wrangler": "4.129.0"
   }
 }
